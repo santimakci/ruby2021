@@ -1,6 +1,9 @@
 module Polycon
   autoload :VERSION, 'polycon/version'
   autoload :Commands, 'polycon/commands'
+  require_relative 'polycon/global.rb'
+  require_relative 'polycon/commands/Classes/Appointment.rb'
+  require_relative 'polycon/commands/Classes/Professional.rb'
 
   # Agregar aquí cualquier autoload que sea necesario para que se cargue las clases y
   # módulos del modelo de datos.
