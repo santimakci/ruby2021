@@ -16,4 +16,9 @@ module Global
     return Dir.exist?("#{self.system_dir}/#{name}")
   end
 
+  def appointment_exist? professional, appointment
+    return File.exist?("#{self.system_dir}/#{professional}/#{appointment}.paf")
+  end
+
+
 end
