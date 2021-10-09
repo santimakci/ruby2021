@@ -6,4 +6,3 @@ ruby '>= 2.6'
 
 gem 'dry-cli', '~> 0.7'
 
-gem 'tty-editor', '~> 0.5.1'

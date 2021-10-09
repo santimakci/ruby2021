@@ -76,8 +76,8 @@ module Polycon
           '"Alma Estevez" --date="2021-09-16" # Lists appointments for Alma Estevez on the specified date'
         ]
 
-        def call(professional:)
-          Appointment.list professional
+        def call(professional:, date: nil)
+          Appointment.list professional, date
         end
       end
 

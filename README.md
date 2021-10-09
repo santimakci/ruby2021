@@ -21,91 +21,76 @@ el cual puede correrse de las siguientes manera:
 $ ruby bin/polycon [args]
 ```
 
-O bien:
+## Ejemplos de los comandos disponibles 
+
+### CRUD Professionals
+
+#### Create
 
 ```bash
-$ bundle exec bin/polycon [args]
+$ ruby bin/polycon p create Santiago
 ```
 
-O simplemente:
+#### Delete 
 
 ```bash
-$ bin/polycon [args]
+$ ruby bin/polycon p delete Santiago
 ```
 
-Si se agrega el directorio `bin/` del proyecto a la variable de ambiente `PATH` de la shell,
-el comando puede utilizarse sin prefijar `bin/`:
+#### Rename
+ 
+first param is old name, second param is new name
 
 ```bash
-# Esto debe ejecutarse estando ubicad@ en el directorio raiz del proyecto, una única vez
-# por sesión de la shell
-$ export PATH="$(pwd)/bin:$PATH"
-$ polycon [args]
+$ ruby bin/polycon p rename Santiago Santi
 ```
 
-> Notá que para la ejecución de la herramienta, es necesario tener una versión reciente de
-> Ruby (2.6 o posterior) y tener instaladas sus dependencias, las cuales se manejan con
-> Bundler. Para más información sobre la instalación de las dependencias, consultar la
-> siguiente sección ("Desarrollo").
 
-Documentar el uso para usuarios finales de la herramienta queda fuera del alcance de esta
-plantilla y **se deja como una tarea para que realices en tu entrega**, pisando el contenido
-de este archivo `README.md` o bien en uno nuevo. Ese archivo deberá contener cualquier
-documentación necesaria para entender el funcionamiento y uso de la herramienta que hayas
-implementado, junto con cualquier decisión de diseño del modelo de datos que consideres
-necesario documentar.
+### CRUD Appointments
 
-## Desarrollo
-
-Esta sección provee algunos tips para el desarrollo de tu entrega a partir de esta
-plantilla.
-
-### Instalación de dependencias
-
-Este proyecto utiliza Bundler para manejar sus dependencias. Si aún no sabés qué es eso
-o cómo usarlo, no te preocupes: ¡lo vamos a ver en breve en la materia! Mientras tanto,
-todo lo que necesitás saber es que Bundler se encarga de instalar las dependencias ("gemas")
-que tu proyecto tenga declaradas en su archivo `Gemfile` al ejecutar el siguiente comando:
+#### Create 
 
 ```bash
-$ bundle install
+$ ruby bin/polycon a create "2022-10-16 13:00" --professional="Maki" --name=Santiago --surname=Makcimovich --phone=2213334567 --notes="nota extra"
+
 ```
 
-> Nota: Bundler debería estar disponible en tu instalación de Ruby, pero si por algún
-> motivo al intentar ejecutar el comando `bundle` obtenés un error indicando que no se
-> encuentra el comando, podés instalarlo mediante el siguiente comando:
->
-> ```bash
-> $ gem install bundler
-> ```
+#### Show appointment
 
-Una vez que la instalación de las dependencias sea exitosa (esto deberías hacerlo solamente
-cuando estés comenzando con la utilización del proyecto), podés comenzar a probar la
-herramienta y a desarrollar tu entrega.
+```bash
+$ ruby bin/polycon a show "2022-10-16 13:00" --professional="Maki"
+```
 
-### Estructura de la plantilla
+#### Cancel
 
-El proyecto te provee una estructura inicial en la cual podés basarte para implementar tu
-entrega. Esta estructura no es necesariamente rígida, pero tené en cuenta que modificarla
-puede requerir algún trabajo adicional de tu parte.
+```bash
+$ ruby bin/polycon a cancel "2022-10-16 13:00" --professional="Maki"
+```
 
-* `lib/`: directorio que contiene todas las clases del modelo y de soporte para la ejecución
-  del programa `bin/polycon`.
-  * `lib/polycon.rb` es la declaración del namespace `Polycon`, y las directivas de carga
-    de clases o módulos que estén contenidos directamente por éste (`autoload`).
-  * `lib/polycon/` es el directorio que representa el namespace `Polycon`. Notá la convención
-    de que el uso de un módulo como namespace se refleja en la estructura de archivos del
-    proyecto como un directorio con el mismo nombre que el archivo `.rb` que define el módulo,
-    pero sin la terminación `.rb`. Dentro de este directorio se ubicarán los elementos del
-    proyecto que estén bajo el namespace `Polycon` - que, también por convención y para
-    facilitar la organización, deberían ser todos. Es en este directorio donde deberías
-    ubicar tus clases de modelo, módulos, clases de soporte, etc. Tené en cuenta que para
-    que todo funcione correctamente, seguramente debas agregar nuevas directivas de carga en la
-    definición del namespace `Polycon` (o dónde corresponda, según tus decisiones de diseño).
-  * `lib/polycon/commands.rb` y `lib/polycon/commands/*.rb` son las definiciones de comandos
-    de `dry-cli` que se utilizarán. En estos archivos es donde comenzarás a realizar la
-    implementación de las operaciones en sí, que en esta plantilla están provistas como
-    simples disparadores.
-  * `lib/polycon/version.rb` define la versión de la herramienta, utilizando [SemVer](https://semver.org/lang/es/).
-* `bin/`: directorio donde reside cualquier archivo ejecutable, siendo el más notorio `polycon`
-  que se utiliza como punto de entrada para el uso de la herramienta.
+
+#### Cancel all
+
+```bash
+$ ruby bin/polycon a cancel-all Maki
+```
+
+#### List 
+
+If date is not sent, it is going to be listed from professional
+
+```bash
+ruby bin/polycon a list "Maki" --date="2022-10-16"
+```
+
+#### Reschedule
+
+```bash
+ruby bin/polycon a reschedule "2022-10-16 13:00" "2022-10-16 18:00" --professiona="Maki"
+```
+
+
+#### Edit 
+
+```bash
+ruby bin/polycon a edit "2022-10-16 18:00" --professional="Maki" --name="Santiago" --surname="Makcimovich" --phone="00000000" --notes="Notaaa editada"
+```
