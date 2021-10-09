@@ -10,7 +10,7 @@ class Appointment
             return puts "Date should be equal or greater than today"
         end
         if !professional_exist? professional or appointment_exist? professional, name_appointment
-            return puts "Professionals doesn't exists or appintment already exists"
+            return puts "Professionals doesn't exists or appointment already exists"
         end
         File.open("#{system_dir}/#{professional}/#{name_appointment}.paf", "w") do |f|     
             f.write("#{name} \n#{surname} \n#{phone} \n#{notes}") 
@@ -29,5 +29,78 @@ class Appointment
         file = File.open("#{system_dir}/#{professional}/#{name_appointment}.paf") 
         puts file.read  
     end
+
+    def self.cancel_appointment date, professional
+        name_appointment = date.tr(" ", "_")
+        if !professional_exist? professional or !appointment_exist? professional, name_appointment
+            return puts "Professionals doesn't exists or appointment doesn't exists"
+        end
+        FileUtils.rm_r "#{system_dir}/#{professional}/#{name_appointment}.paf"
+        return puts "Appointment has been deleted"
+    end
+
+    def self.cancel_all professional
+        if !professional_exist? professional
+            return puts "Professional doesn't exists"
+        end
+        FileUtils.rm_rf "#{system_dir}/#{professional}/.", secure: true
+        puts "All appointments from #{professional} have been deleted"
+    end 
+
+    def self.reschedule old_date, new_date, professional
+        name_new_appointment = new_date.tr(" ", "_")
+        name_old_appointment = old_date.tr(" ", "_")
+        if !professional_exist? professional or !appointment_exist? professional, name_old_appointment
+            return puts "Professionals doesn't exists or appointment doesn't exists"
+        end
+        if appointment_exist name_new_appointment
+            return puts "There is already an appointment in that date"
+        end
+        File.rename("#{system_dir}/#{professional}/#{name_old_appointment}", "#{system_dir}/#{professional}/#{name_new_appointment}")
+        puts "The appointment was changed to #{new_date}"
+    end
+
+    def self.list professional
+        if !professional_exist? professional
+            return puts "Professional doesn't exists"
+        end
+        Dir.foreach("#{system_dir}/#{professional}/") do |dir|
+            if dir != "." && dir != ".."
+              puts dir.chomp(".paf").tr("_", " ")
+            end
+          end
+    end
+
+    def self.edit_appointment date, professional, options
+        name_appointment = date.tr(" ", "_")
+        if !professional_exist? professional or !appointment_exist? professional, name_appointment
+            return puts "Professionals doesn't exists or appointment doesn't exists"
+        end
+        lines = File.readlines("#{system_dir}/#{professional}/#{name_appointment}.paf")
+        File.foreach("#{system_dir}/#{professional}/#{name_appointment}.paf").with_index do |line, line_num|
+            case line_num
+            when 0
+                if options.key? :name
+                    lines[line_num] = "#{options[:name]}\n"
+                end
+            when 1
+                if options.key? :surname
+                    lines[line_num] = "#{options[:surname]}\n"
+                end
+            when 2
+                if options.key? :phone
+                    lines[line_num] = "#{options[:phone]}\n"
+                end
+            when 3
+                if options.key? :notes
+                    lines[line_num] = "#{options[:notes]}\n"
+                end
+            end
+            File.open("#{system_dir}/#{professional}/#{name_appointment}.paf", 'w') { |f| f.write(lines.join) }
+        end
+        puts "The appointment was modified correctly"
+    end
+
+
 
 end

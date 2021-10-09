@@ -16,6 +16,7 @@ module Polycon
         ]
 
         def call(date:, professional:, name:, surname:, phone:, notes: nil)
+
           Appointment.create_appointment date, professional, name, surname, phone, notes
         end
       end
@@ -46,7 +47,7 @@ module Polycon
         ]
 
         def call(date:, professional:)
-          warn "TODO: Implementar borrado de un turno con fecha '#{date}' y profesional '#{professional}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          return Appointment.cancel_appointment date, professional
         end
       end
 
@@ -60,7 +61,7 @@ module Polycon
         ]
 
         def call(professional:)
-          warn "TODO: Implementar borrado de todos los turnos de la o el profesional '#{professional}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          return Appointment.cancel_all professional
         end
       end
 
@@ -76,7 +77,7 @@ module Polycon
         ]
 
         def call(professional:)
-          warn "TODO: Implementar listado de turnos de la o el profesional '#{professional}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          Appointment.list professional
         end
       end
 
@@ -92,7 +93,7 @@ module Polycon
         ]
 
         def call(old_date:, new_date:, professional:)
-          warn "TODO: Implementar cambio de fecha de turno con fecha '#{old_date}' para que pase a ser '#{new_date}'.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          Appointment.reschedule old_date, new_date, professional
         end
       end
 
@@ -113,7 +114,7 @@ module Polycon
         ]
 
         def call(date:, professional:, **options)
-          warn "TODO: Implementar modificación de un turno de la o el profesional '#{professional}' con fecha '#{date}', para cambiarle la siguiente información: #{options}.\nPodés comenzar a hacerlo en #{__FILE__}:#{__LINE__}."
+          Appointment.edit_appointment date, professional, options
         end
       end
     end
