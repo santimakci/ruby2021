@@ -97,6 +97,24 @@ module Polycon
         end
       end
 
+      class Export < Dry::CLI::Command
+        desc 'Export an appointment'
+
+        option :date, required: true, desc: 'Date to list'
+        option :professional, required: false, desc: 'Full name of the professional'
+        option :week, required: false, desc: 'Export all week'
+
+
+        example [
+          '"2021-09-16 13:00" "2021-09-16 14:00" --professional="Alma Estevez" # Reschedules appointment on the first date for professional Alma Estevez to be now on the second date provided'
+        ]
+
+        def call(**options)
+          Appointment.export options
+        end
+      end
+    
+
       class Edit < Dry::CLI::Command
         desc 'Edit information for an appointments'
 
@@ -116,6 +134,7 @@ module Polycon
         def call(date:, professional:, **options)
           Appointment.edit_appointment date, professional, options
         end
+
       end
     end
   end

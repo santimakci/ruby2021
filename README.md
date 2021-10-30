@@ -94,3 +94,36 @@ ruby bin/polycon a reschedule "2022-10-16 13:00" "2022-10-16 18:00" --profession
 ```bash
 ruby bin/polycon a edit "2022-10-16 18:00" --professional="Maki" --name="Santiago" --surname="Makcimovich" --phone="00000000" --notes="Notaaa editada"
 ```
+
+
+### Exports 
+
+Para esta entrega utilicé la gema buildes para la creación de los html, e implementé dos funciones ubicados en la carpeta templates que se encargar de crear el html correspondiente, uno para los casos de exportación semanal y otro para los casos de días individuales. 
+Se agregó el comando export, dependiendo la combinación de parámetros va a reaccionar a la manera correspondiente pudiendo exportar para un día, una semana, para un professional o para todos como decía la consigna.
+Si se envía el comando --week=true se va a exportar la semana a partir de la fecha indicada, caso contrario se exportará el día indicado. 
+
+En la carpeta .polycon se va a exportar el archivo que no especifíca profesional, en caso de que se especifíque se creara dentro de la carpeta del profesional correspondiente. 
+
+Exports for professional in one date
+
+```bash
+ruby bin/polycon a export --date="2022-10-16" --professional="Maki"
+```
+
+Export all professionals in one date 
+
+```bash
+ruby bin/polycon a export --date="2022-10-16"
+```
+
+Export week 
+
+With the param --week=true we can export all week, with or without professional
+
+```bash
+ ruby bin/polycon a export --date="2022-10-16" --professional="Maki" --week=true
+```
+
+```bash
+ ruby bin/polycon a export --date="2022-10-16" --week=true
+```

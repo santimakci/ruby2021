@@ -1,5 +1,5 @@
 class Professional
-    extend Global
+    extend Helpers
     require 'fileutils'
 
     def self.professional_create name
@@ -9,7 +9,7 @@ class Professional
 
     def self.create name
       if is_valid_name? name 
-        if !professional_exist? name
+        if !professional_exist? name 
           self.professional_create name
         else
           puts "Professional already exists"
@@ -21,14 +21,14 @@ class Professional
 
     def self.list_professionals
       Dir.foreach(system_dir) do |dir|
-        if File.directory?("#{system_dir}/#{dir}") && dir != "." && dir != ".."
+        if File.directory?("#{system_dir}/#{dir}") && dir != "." && dir != ".." && dir != "exports_by_date"
           puts dir
         end
       end
     end
 
     def self.rename_professional old_name, new_name
-      if professional_exist? old_name and is_valid_name? new_name
+      if professional_exist? old_name and is_valid_name? new_name and !professional_exist? new_name
         File.rename("#{system_dir}/#{old_name}", "#{system_dir}/#{new_name}")
         return puts "Professional name was modified to: #{new_name}"
       else
@@ -50,5 +50,15 @@ class Professional
       rescue
         return puts "There was an error, the professional couldn't be deleted"
       end
+    end
+
+    def self.get_array_professionals
+      professionals = []
+      Dir.foreach("#{system_dir}/") do |file|
+        if file != "." && file != ".." && file != "exports_by_date"
+          professionals.push(file)
+        end
+      end
+      return professionals
     end
 end
