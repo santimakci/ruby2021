@@ -1,0 +1,32 @@
+<div class="card card-position">
+  <article class="card-body">
+    <h4 class="card-title text-center mb-4 mt-1">Crear Profesional</h4>
+    <hr>
+    <% if flash[:messages] and !flash[:success] %>
+      <div class="alert alert-danger" >
+        <p id="message-style" style="font-weight: bold; margin: auto;">
+          <%= flash[:messages] %>
+        </p>
+      </div>
+    <% end %>
+    <% if flash[:success] %>
+      <div class="alert alert-success" >
+        <p id="message-style" style="font-weight: bold; margin: auto;">
+          <%= flash[:messages] %>
+        </p>
+      </div>
+    <% end %>
+    <%= form_with(model: professional) do |form_proff| %>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+          </div>
+          <%= form_proff.text_field :nameAndSurname, class:"form-control", placeholder: "Nombre y apellido" %>
+        </div>
+        <div class="form-group button-create ">
+          <%= form_proff.submit class:"btn btn-dark btn-block", value:"Crear profesional"%>
+        </div>
+      <% end %>
+    </article>
+  </div>

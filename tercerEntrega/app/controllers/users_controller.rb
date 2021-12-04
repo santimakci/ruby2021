@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :authorized, only: [:new, :create]
 
   # GET /users or /users.json
 
@@ -12,20 +13,18 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  # GET /users/1/edit
-  def edit
-  end
 
   # POST /users or /users.json
   def create
+    byebug
     @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save
+        session[:user_id] = @user.id
         format.html { redirect_to root_path, notice: "User was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
