@@ -1,0 +1,32 @@
+<div class="card card-position">
+  <article class="card-body">
+    <div class="form-group">
+      <div class="input-group">
+        <p id="proff-p">Profesional: <%= @appointment.professional.nameAndSurname%></p>
+      </div>
+      <div class="input-group">
+        <p id="patient-p">Paciente: <%= @appointment.user.email%></p>
+      </div>
+      <div class="input-group"">
+        <p id="patient-p">Fecha: <%= @appointment.date%></p>
+      </div>
+      <div class="input-group">
+        <p id="patient-p">Hora: <%= @appointment.hour.to_s(:time)%></p>
+      </div>
+    </div>
+  </article>
+  <% if flash[:messages] and !flash[:success] %>
+    <div class="alert alert-danger" >
+      <p id="message-style" style="font-weight: bold; margin: auto;">
+        <%= flash[:messages] %>
+      </p>
+    </div>
+  <% end %>
+  <% if flash[:success] %>
+    <div class="alert alert-success" >
+      <p id="message-style" style="font-weight: bold; margin: auto;">
+        <%= flash[:messages] %>
+      </p>
+    </div>
+  <% end %>
+</div>

@@ -1,16 +1,31 @@
 class ApplicationController < ActionController::Base
     
-  helper_method :authorized
+    helper_method :authorized
     helper_method :current_user
     helper_method :logged_in?
+    helper_method :admin_authorized
+    helper_method :assistant_authorized
+    helper_method :appointments_authorized
 
     
     def current_user
       User.find_by(id: session[:user_id])
     end
 
-    def is_admin?
-      if current_user.admin?
+    def admin_authorized
+      if !current_user.admin?
+        redirect_to root_path
+      end
+    end
+
+    def assistant_authorized
+      if !current_user.assistant?
+        redirect_to root_path
+      end
+    end
+
+    def appointments_authorized
+      if !current_user.assistant? and !current_user.admin?
         redirect_to root_path
       end
     end

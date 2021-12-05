@@ -16,7 +16,7 @@
         </p>
       </div>
     <% end %>
-    <%= form_with model: appointment, url: appointment_index_path, method: :post do |form_appo| %>
+    <%= form_with model: @appointment, url: appointment_path(@appointment.id), method: :patch do |form_appo| %>
       <div class="form-group">
         <p id="proff-p">Profesional</p>
         <div class="input-group">
@@ -26,7 +26,7 @@
                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
               </svg></span>
           </div>
-          <%= form_appo.select :professional_id, Professional.all.collect {|x| [x.nameAndSurname, x.id]}, {}, {class: 'form-select form-select-md'} %>
+          <%= form_appo.select :professional_id, options_for_select(@professionals.map {|x| [x.nameAndSurname, x.id]}, @appointment.professional.id), {}, {class: 'form-select form-select-md'} %>
         </div>
         <p id="patient-p">Paciente</p>
         <div class="input-group" style="margin-top:0.5em;">
@@ -43,7 +43,7 @@
               <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
             </svg></i> </span>
         <div id="datetimepicker1">
-          <%= form_appo.text_field :date, id: "datepicker", required:true, class:"form-control" %>
+          <%= form_appo.text_field :date, id: "datepicker", value: @appointment.date.strftime("%d/%m/%Y"), class:"form-control" %>
         </div>
       </div>
       <div class="input-group" style="margin-top:0.5em;">
@@ -55,11 +55,11 @@
             </svg>
           </span>
         </div>
-        <%= form_appo.select :hour, @hours.map { |value| [ value, value ] }, {},  {class: 'form-select form-select-md margin-auto'} %>
+        <%= form_appo.select :hour, options_for_select( @hours.map { |value| [ value, value ] }, @appointment.hour.to_s(:time)), {},  {class: 'form-select form-select-md margin-auto'} %>
       </div>
     </div>
     <div class="form-group button-create" >
-      <%= form_appo.submit class:"btn btn-dark btn-block", value:"Crear Turno"%>
+      <%= form_appo.submit class:"btn btn-dark btn-block", value:"Actualizar Turno"%>
     </div>
   </div>
 <% end %>
