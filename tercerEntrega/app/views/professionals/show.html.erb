@@ -49,4 +49,18 @@
       <% end %>
     </tbody>
   </table>
+  <% if flash[:messages] and !flash[:success] %>
+    <div class="alert alert-danger" >
+      <p id="message-style" style="font-weight: bold; margin: auto;">
+        <%= flash[:messages] %>
+      </p>
+    </div>
+  <% end %>
+  <% if flash[:success] %>
+    <div class="alert alert-success" >
+      <p id="message-style" style="font-weight: bold; margin: auto;">
+        <%= flash[:messages] %>
+      </p>
+    </div>
+  <% end %>
 </div>

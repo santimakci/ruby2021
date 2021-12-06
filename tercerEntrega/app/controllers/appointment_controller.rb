@@ -39,10 +39,11 @@ class AppointmentController < ApplicationController
     end
 
     def destroy
+      set_appointment
       @professional_id = @appointment.professional_id
       @appointment.destroy
       respond_to do |format|
-        format.html { redirect_to professional_path(@professional_id), flash:{success: false, messages: "Se eliminó el turno con éxito" }}
+        format.html { redirect_to professional_path(@professional_id), flash:{success: true, messages: "Se eliminó el turno con éxito" }}
       end
     end
 
