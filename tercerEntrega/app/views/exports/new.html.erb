@@ -1,2 +1,58 @@
-<h1>Exports#new</h1>
-<p>Find me in app/views/exports/new.html.erb</p>
+<div class="card card-position">
+  <article class="card-body">
+    <h4 class="card-title text-center mb-4 mt-1">Exportar turnos</h4>
+    <hr>
+    <% if flash[:messages] and !flash[:success] %>
+      <div class="alert alert-danger" >
+        <p id="message-style" style="font-weight: bold; margin: auto;">
+          <%= flash[:messages] %>
+        </p>
+      </div>
+    <% end %>
+    <% if flash[:success] %>
+      <div class="alert alert-success" >
+        <p id="message-style" style="font-weight: bold; margin: auto;">
+          <%= flash[:messages] %>
+        </p>
+      </div>
+    <% end %>
+    <%= form_with url: exports_path, method: :post do |form_export| %>
+      <div class="form-group">
+        <div class="form-check" style="margin-top:0.5em; justify-content:center;text-align: center;">
+          <%= form_export.label :weekly, "Semana", value: true  %>
+          <%= form_export.radio_button :weekly, true %>
+          <%= form_export.label :weekly, "Día", value: false %>
+          <%= form_export.radio_button :weekly, false, :checked => true %>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group" style="margin-top:0.5em; justify-content:center;">
+          <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+              <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+              <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+            </svg></i> </span>
+        <div id="datetimepicker1">
+          <%= form_export.text_field :date, id: "datepicker", required:true, class:"form-control" %>
+        </div>
+      </div>
+      <div class="input-group" style="margin-top:1em;">
+        <br>
+        <div class="input-group-prepend">
+          <span class="input-group-text"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="24" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+              <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg></span>
+        </div>
+        <%= form_export.select :professional_id, options_for_select(@professionals.map {|x| [x.nameAndSurname, x.id]}),{include_blank: "Sin profesional"}, { class: 'form-select form-select-md'} %>
+      </div>
+      <div class="form-group button-create" >
+        <%= form_export.submit class:"btn btn-dark btn-block", value:"Exportar Turnos"%>
+      </div>
+    </div>
+  <% end %>
+</article>
+</div>
+<script type="text/javascript">
+  $( () => {
+      $('#datepicker').datepicker();
+  });
+</script>

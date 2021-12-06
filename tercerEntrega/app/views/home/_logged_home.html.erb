@@ -7,6 +7,7 @@
     <%if current_user.assistant? %>
       <%= link_to 'Crear turno', new_appointment_path, class:"btn btn-lg btn-dark button-margenes", style:"margin-right: 1em;" %>
     <%end%>
+    <%= link_to 'Exportar turnos', new_export_path, class:"btn btn-lg btn-dark button-margenes", style:"margin-right: 1em;" %>
   </div>
   <table class="table border mx-auto" style="margin-top:3em;">
     <thead class="thead-dark">

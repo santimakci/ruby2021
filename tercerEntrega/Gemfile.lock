@@ -212,6 +212,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.4)
   bootstrap-datepicker-rails
+  builder (~> 3.2, >= 3.2.2)
   byebug
   capybara (>= 3.26)
   jbuilder (~> 2.7)
