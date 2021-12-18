@@ -16,7 +16,7 @@
         </p>
       </div>
     <% end %>
-    <%= form_with url: exports_path, method: :post do |form_export| %>
+    <%= form_with url: appointment_create_export_path, method: :post do |form_export| %>
       <div class="form-group">
         <div class="form-check" style="margin-top:0.5em; justify-content:center;text-align: center;">
           <%= form_export.label :weekly, "Semana", value: true  %>
@@ -45,7 +45,7 @@
         <%= form_export.select :professional_id, options_for_select(@professionals.map {|x| [x.nameAndSurname, x.id]}),{include_blank: "Sin profesional"}, { class: 'form-select form-select-md'} %>
       </div>
       <div class="form-group button-create" >
-        <%= form_export.submit class:"btn btn-dark btn-block", value:"Exportar Turnos"%>
+        <%= form_export.submit class:"btn btn-dark btn-block", id:"boton", value:"Exportar Turnos", target:"_blank"%>
       </div>
     </div>
   <% end %>
@@ -55,4 +55,12 @@
   $( () => {
       $('#datepicker').datepicker();
   });
+</script>
+<script type="text/javascript">
+  $('#boton').click(function() {
+    const myTimeout = setTimeout(reloadPage, 0);
+  });
+  function reloadPage(){
+    location.reload();
+  }
 </script>

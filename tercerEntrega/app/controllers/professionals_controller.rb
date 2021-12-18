@@ -1,5 +1,5 @@
 class ProfessionalsController < ApplicationController
-  before_action :set_professional, only: %i[ show edit update destroy ]
+  before_action :set_professional, only: [ :show, :edit, :update, :destroy ]
   before_action :admin_authorized, only: [:new, :edit, :destroy, :update, :create]
 
   # GET /professionals/1 or /professionals/1.json
