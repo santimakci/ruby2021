@@ -2,6 +2,13 @@
 
 ## Tercer entrega
 
+### CORRECCIONES
+
+ - Se acomodó la lógica de los controller para utilziar el before action de manera correcta y evitar escribir código extra
+ - Se eliminó el controller de exports y se movió la lógica al controller de appointments
+ - Se generó un script en seed para crear usuarios, turnos y profesionales 
+ - Se corrigió la descarga de archivos que bloqueaba el botón una vez presionado 
+
   
 
 En esta entrega se implementó el uso de ruby on rails para el manejo de turnos y profesionales.
