@@ -1,3 +1,12 @@
+# Correciones segunda entrega 
+
+Se realizaron las correciones solicitadas:
+    -Se incluyó todo como submódulo del módulo principal Polycon
+    -Ahora el programa genera una carpeta nueva .polycoExports para evitar mezclar los datos de los usuarios con los exports generados
+    -Se creo una función para ir al inicio de la semana, para los exports semanales. 
+    -Se imprime en consola la ruta donde se exportan los archivos 
+
+
 # Polycon
 
 Plantilla para comenzar con el Trabajo Práctico Integrador de la cursada 2021 de la materia
